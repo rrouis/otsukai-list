@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping list</title>
+  <meta name="discription" content="お母さんの買い物リスト">
+  <meta name="keyword" content="買い物リスト,ショッピングリスト,メモ">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="wrapper">
+
+    <header id="global-header">
+      <h1>Shopping list</h1>
+    </header><!-- header -->
+
+    <main id="content">
+
+      <div class="modal-btn-fixed">
+        <button type="button" name="button" id="modal-btn"><img src="images/modalbtn.png" alt="リスト追加ボタン"></button>
+      </div>
+
+      <ul id="todolist">
+      </ul>
+
+      <div class="modal">
+        <div class="push">
+          <p>追加されました</p>
+        </div>
+        <div class="modal-content-fixed">
+          <div class="modal-content">
+            <input type="text" name="input-text" value="" placeholder="何を買いますか？"  id="input-text">
+          </div>
+        </div>
+      </div><!-- madal -->
+
+    </main><!-- main -->
+
+  </div><!-- wrapper -->
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+  // -------------- モーダルウィンドウ -------------
+
+  $('#modal-btn').on('click',function(){
+    $('.modal').fadeIn(200);
+  });
+
+  $('.modal').on('click',function(){
+    $(this).fadeOut(200);
+  });
+
+  // クリックした時にモーダルウィンドウを閉じないようにする
+  $('.modal-content').on('click',function(evt){
+    //イベントを modal 要素まで伝えない
+    evt.stopPropagation();
+  });
+
+  // -------------- text 追加 ------------------------------
+
+  // text 追加
+  var todos = [];
+
+  $('#input-text').keypress(function(e) {
+    // 13 === EnterKey
+    if(e.which === 13){
+      var $text = $('#input-text');
+      var val = $text.val();
+      todos.push(val);
+      console.log(val);
+
+      createList(val);
+
+      // push
+      if($(window).width() < 480){
+        $('.push').animate({'marginTop': '60px'}, {
+          duration: 300,
+          complete: function(){
+            $('.push').delay(500).animate({'marginTop': '0'}, 300);
+          }
+        });
+      }
+      else {
+        $('.push').animate({'marginTop': '80px'}, {
+          duration: 300,
+          complete: function(){
+            $('.push').delay(500).animate({'marginTop': '0'}, 300);
+          }
+        });
+
+      // 文字入力のリセット
+      $text.val('');
+
+
+      }
+
+  // -------------- ストレージに保存 -------------------------
+
+      saveToLocalStorage();
+
+      return false;
+    }
+  });
+
+  // -------------- getItem -------------------------------
+
+  var data = window.localStorage.getItem('todo');
+
+  //ローカルストレージにデータがあった場合 null じゃなかった場合
+  if(data !== null){
+
+    // JSON文字列を配列に変換
+    console.log(data);
+    var array = JSON.parse(data);
+
+    for (var i = 0; i < array.length; i++) {
+      createList(array[i]);
+    }
+  }
+
+// 共通 ------------ saveToLocalStorage ----------------
+
+function saveToLocalStorage() {
+
+  // 配列 => 文字列
+  var json = JSON.stringify(todos);
+  // ローカルストレージに保存 文字列と数字しか保存できない
+  window.localStorage.setItem('todo', json);
+
+}
+
+// 共通 ------------ createList ------------------------
+
+function createList(value){
+  // 出力
+  var spanEl = $('<span>');
+  spanEl.text(value);
+  console.log(value);
+
+  // text 削除
+  var delBtnEl = $('<button>');
+  delBtnEl.addClass('delBtn');
+  delBtnEl.on('click', function(){
+
+    // アニメーション
+    var $li = $(this).parent();
+    var num = $('#todolist li').index($li);
+    console.log(num);
+
+    todos.reverse();
+    // 配列から要素を消す
+    todos.splice(num, 1);
+    todos.reverse();
+
+    // ローカルストレージに保存
+    saveToLocalStorage();
+
+    $li.fadeOut(300).queue(function(){
+      $li.remove();
+    });
+  });
+
+  // ラップする div
+  var liEl = $('<li>');
+  liEl.addClass('todolist-item');
+  liEl.append(spanEl);
+  liEl.append(delBtnEl);
+
+  $('#todolist').prepend(liEl)
+  liEl.hide().fadeIn(500);
+
+};
+
+
+</script>
+
+
+</body>
+</html>

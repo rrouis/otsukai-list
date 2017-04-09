@@ -1,0 +1,254 @@
+body {
+  margin: 0 auto;
+  color: #000;
+  font-family: "Avenir Next", Verdana, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", "メイリオ", Meiryo, Osaka, sans-serif;
+  background-image: url("images/bg01.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 0.2em;
+  line-height: 60px;
+}
+
+button {
+  outline: none;
+}
+
+#global-header {
+  position: fixed; /*600px 以下では画面下に固定*/
+    top: 0px;
+    z-index: 10;
+  background-color: #fff;
+  width: 100%;
+  height: 80px;
+  text-align: center;
+}
+
+#modal-btn {
+  padding:0;
+  margin:0;
+  background:none;
+  border:0;
+  font-size:0;
+  line-height:0;
+  overflow:visible;
+  cursor:pointer;
+  position: fixed;
+  position: absolute;
+  right: 40px;
+  bottom: 60px;
+  transition: .3s ease-in-out;
+}
+
+#regist-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  position: absolute;
+  right: 32px;
+  top: 24px;
+  background-image: url(images/add_up.png);
+  background-repeat: no-repeat;
+}
+
+#input-text {
+  width: 80%;
+  height: 80%;
+  border: none;
+  font-size: 18px;
+  position: absolute;
+  top: 8px;
+  left: 32px;
+}
+
+#todolist {
+  margin-top: 112px;
+  list-style: none;
+  padding: 0;
+}
+
+
+.modal-btn-fixed {
+  position: fixed;
+    bottom: -3px;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+}
+
+#modal-btn:hover {
+  -webkit-transform: scale(1.2);
+	transform: scale(1.2);
+}
+
+.modal {
+  display: none;
+  position: fixed;;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .3);
+}
+
+.push {
+  margin-top: 0;
+  padding: 10px;
+  font-size: 14px;
+  letter-spacing: .2em;
+  /* margin: 0 auto; */
+  text-align: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, .4);
+}
+
+.modal-content-fixed {
+  position: fixed;
+  bottom: -3px;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.modal-content {
+  position: absolute;
+  bottom: 60px;
+  left: 288px;
+  height: 80px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0px 0px 20px　rgba(0, 0, 0, 0.1);
+  width: 60%;
+  border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+input[type="text"]:focus {
+  outline: 0;
+}
+
+#modal-btn img {
+  width: 80px;
+}/* modal */
+
+
+.todolist-item {
+  position: relative;
+  height: 80px;
+  margin: 0 auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  width: 60%;
+  border-radius: 10px;        /* CSS3草案 */
+    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */
+    -moz-border-radius: 10px;   /* Firefox用 */
+}
+
+span {
+  position: absolute;
+  top: 30px;
+  left: 32px;
+}
+
+.delBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  position: absolute;
+  right: 32px;
+  top: 30px;
+  background-image: url(images/check.png);
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+
+.delBtn:hover {
+  filter: grayscale(0%);
+  -webkit-transform: scale(1.3);
+	transform: scale(1.3);
+
+}/* todolist */
+
+@media screen and (max-width: 480px) {
+
+  h1 {
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+    line-height: 34px;
+  }
+
+  #global-header {
+    height: 60px;
+  }
+
+  #modal-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  #input-text {
+    position: absolute;
+    top: 5px;
+    left: 32px;
+    font-size: 14px;
+  }
+
+  #todolist {
+    margin-top: 82px;
+  }
+
+  #regist-btn {
+    position: absolute;
+    right: 32px;
+    top: 14px;
+  }
+
+  #modal-btn img {
+    width: 60px;
+  }
+
+  .modal-content {
+    width: 72%;
+    height: 60px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+  .todolist-item {
+    width: 90%;
+    height: 60px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  span {
+    position: absolute;
+    top: 21px;
+    left: 32px;
+    font-size: 14px;
+  }
+
+  .delBtn {
+    position: absolute;
+    right: 32px;
+    top: 20px;
+  }
+
+  .push {
+    margin-top: 0;
+    padding: 5px;
+  }
+
+}/* 表示領域480px以下の場合に適用 */
